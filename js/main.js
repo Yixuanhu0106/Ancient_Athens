@@ -57,12 +57,14 @@ $('#sldOpacity').on('change', function() {
 
 $('#customSwitch1').change(function() { // toggle historical map
   if ($('#customSwitch1').is(':checked')) {
+    map.removeLayer(baseMap);
     layerHistorical.addTo(map);
     sbsInitial.setLeftLayers(layerHistorical);
     $('.opacity-container').fadeIn();
     return;
   } else {
     map.removeLayer(layerHistorical);
+    map.addLayer(baseMap);
     sbsInitial.setLeftLayers(baseMap);
     $('.opacity-container').fadeOut();
   }
