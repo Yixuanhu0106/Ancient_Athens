@@ -13,7 +13,7 @@ var baseMap_perm = L.tileLayer('https://api.mapbox.com/styles/v1/emilyhu/cjuykkz
 }).addTo(map)
 
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 }).addTo(map);
 
 var baseMap = L.tileLayer('https://api.mapbox.com/styles/v1/emilyhu/cjuykkzuz0fmk1fmpyfaywrdn/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZW1pbHlodSIsImEiOiJjanRraXBjYjAwMDZiNDRxbHg3cDlwbHA5In0.Z8oZamlBpJF4Sv58aC1c_A', {
@@ -35,4 +35,52 @@ var sbsInitial = L.control.sideBySide(baseMap, Esri_WorldImagery).addTo(map);
 
 L.control.zoom({
   position: 'topright'
+}).addTo(map);
+
+var myStyle = function(feature) {
+  switch (feature.properties.period) {
+    case "Archaic":
+      return {
+        color: '#646464'
+        // color: '#440154FF'
+      };
+    case "Classical":
+      return {
+        color: '#00395E'
+        // color: '#31688EFF'
+      };
+    case "Hellenistic":
+      return {
+        color: '#E0C389'
+        // color: '#35B779FF'
+      };
+    case "Roman":
+      return {
+        color: '#8B0E3A'
+        // color: '#FDE725FF'
+      };
+    default:
+      return {
+        color: '#f2f2f2'
+      };
+  }
+};
+var layerAttractions;
+
+function onEachFeature(feature, layer) {
+  layer.bindPopup(feature.properties.name, {
+    closeButton: false,
+    offset: L.point(0, -20)
+  });
+  layer.on('mouseover', function() {
+    layer.openPopup();
+  });
+  layer.on('mouseout', function() {
+    layer.closePopup();
+  });
+}
+
+layerAttractions = L.geoJSON(attractions, {
+  style: myStyle,
+  onEachFeature: onEachFeature
 }).addTo(map);

@@ -209,8 +209,22 @@ a.article:hover {
 #sidebarCollapse {
   background-color: #8B0E3A;
   border-color: #8B0E3A;
+  height: 40px;
+  width: 40px;
   position: fixed;
   margin-left: 5px;
+  margin-top: 2px;
+  z-index: 9999;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#infoModal {
+  background-color: #666;
+  border-color: #666;
+  height: 40px;
+  width: 40px;
+  position: fixed;
+  margin-left: 55px;
   margin-top: 2px;
   z-index: 9999;
   cursor: pointer;

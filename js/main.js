@@ -1,36 +1,3 @@
-var myStyle = function(feature) {
-  switch (feature.properties.period) {
-    case "Archaic":
-      return {
-        color: '#646464'
-        // color: '#440154FF'
-      };
-    case "Classical":
-      return {
-        color: '#00395E'
-        // color: '#31688EFF'
-      };
-    case "Hellenistic":
-      return {
-        color: '#E0C389'
-        // color: '#35B779FF'
-      };
-    case "Roman":
-      return {
-        color: '#8B0E3A'
-        // color: '#FDE725FF'
-      };
-    default:
-      return {
-        color: '#f2f2f2'
-      };
-  }
-};
-
-layerAttractions = L.geoJSON(attractions, {
-  style: myStyle
-}).addTo(map);
-
 var sidebarOut = false; //the place of sidebar
 
 $('.opacity-container').hide();
@@ -70,6 +37,7 @@ $('#customSwitch1').change(function() { // toggle historical map
   }
 });
 
+
 //When clicking features:
 var eachFeatureFunction = function(layer) {
   layer.on('click', function(event) {
@@ -87,9 +55,14 @@ var eachFeatureFunction = function(layer) {
     $('.desp-container a').text(layer.feature.properties.name);
     $('.desp-container').fadeIn();
     $('.opening-container').fadeOut();
+
+    //the switch to show walking distance attractions
+    $('#customSwitch2').change(function() {
+      createIsochrones(layer.feature.geometry.coordinates[0]);
+    });
   });
 };
 
-$(function () {
+$(function() {
   $('[data-toggle="tooltip"]').tooltip()
 })
